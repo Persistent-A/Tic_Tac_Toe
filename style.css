@@ -1,0 +1,239 @@
+/* Everything selector */
+*, *::after, *::before {
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) * .9);
+  }
+  
+  body {
+    margin: 0;
+    background-color: #0C1017; 
+  }
+
+  body h3 {
+    font-family:'Times New Roman', Times, sans-serif;
+    text-align: center;
+    font-size: 50px;
+    color: #B2ECFE;
+  }
+  
+  .board {
+    width: 100vw;
+    height: 40vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+    box-shadow: 10px 5px 5px rgb(112, 95, 156);
+  }
+  
+  .cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid #B2ECFE;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .cell:first-child,
+  .cell:nth-child(2),
+  .cell:nth-child(3) {
+    border-top: none;
+  }
+  
+  .cell:nth-child(3n + 1) {
+    border-left: none;
+  }
+  
+  .cell:nth-child(3n + 3) {
+    border-right: none;
+  }
+  
+  .cell:last-child,
+  .cell:nth-child(8),
+  .cell:nth-child(7) {
+    border-bottom: none;
+  }
+  
+  .cell.x,
+  .cell.circle {
+    cursor: not-allowed;
+  }
+  
+  .cell.x::before,
+  .cell.x::after,
+  .cell.circle::before {
+    background-color: #6B7AE3;
+  }
+  
+  .board.x .cell:not(.x):not(.circle):hover::before,
+  .board.x .cell:not(.x):not(.circle):hover::after,
+  .board.circle .cell:not(.x):not(.circle):hover::before {
+    background-color: lightgrey;
+  }
+  
+  .cell.x::before,
+  .cell.x::after,
+  .board.x .cell:not(.x):not(.circle):hover::before,
+  .board.x .cell:not(.x):not(.circle):hover::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--mark-size) * .10);
+    height: var(--mark-size);
+  }
+  
+  .cell.x::before,
+  .board.x .cell:not(.x):not(.circle):hover::before {
+    transform: rotate(45deg);
+  }
+  
+  .cell.x::after,
+  .board.x .cell:not(.x):not(.circle):hover::after {
+    transform: rotate(-45deg);
+  }
+  
+  .cell.circle::before,
+  .cell.circle::after,
+  .board.circle .cell:not(.x):not(.circle):hover::before,
+  .board.circle .cell:not(.x):not(.circle):hover::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .cell.circle::before,
+  .board.circle .cell:not(.x):not(.circle):hover::before {
+    width: var(--mark-size);
+    height: var(--mark-size);
+  }
+  
+  .cell.circle::after,
+  .board.circle .cell:not(.x):not(.circle):hover::after {
+    width: calc(var(--mark-size) * .9);
+    height: calc(var(--mark-size) * .7);
+    background-color: rgb(10, 8, 8);
+  }
+  
+  .winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-items: center;
+    color: #9AE1E5;
+    font-size: 5rem;
+    flex-direction: column;
+  }
+  
+  .winning-message button {
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+  }
+  
+  .winning-message button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+  }
+  
+  .winning-message.show {
+    display: flex;
+  }
+
+
+/* Player Name and Score */
+
+.score {
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 1% 30% 0 30%;
+  color: #7FE686;
+  font-size: 25px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.player1, .player2 {
+  border: 1px solid black;
+  background-color: black;
+  padding: 10px 30px;
+  border-radius: 8px;
+  /* box-shadow: 10px 5px 5px grey; */
+  box-shadow: inset 0 -3em 3em rgba(60, 58, 58, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+/* Game Count / Draws */
+
+.gameCount {
+  text-align: center;
+  margin: 2% 30% 4% 30%;
+  font-size: 23px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.gamePlayed {
+  margin-bottom: 1%;
+}
+
+.gamePlayed, .draw {
+  margin: 1% 30%;
+  background-color: grey;
+  color: #7FE686;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 650px){
+  body h3{
+    font-size: 40px;
+  }
+  .score{
+    margin: 1% 20% 0 20%;
+  }
+  .player1, .player2 {
+    margin-left: 7px;
+    box-shadow: none;
+    font-size: 20px;
+    padding: 8px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: inset 0 -3em 3em rgba(60, 58, 58, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  }
+  .gameCount{
+    display: flex;
+    justify-content: space-around;
+    margin: 2% 30% 3% 30%;
+    font-size: 23px;
+  }
+  .gamePlayed, .draw {
+    display: flex;
+    flex-direction: column;
+    margin: 1% 3%;
+    background-color: rgb(145, 136, 144);
+    padding: 10px;
+  }
+  .winning-message{
+    font-size: 3rem;
+  }
+  .winning-message button{
+    margin-top: 5px;
+  }
+}
